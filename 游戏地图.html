@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>搞钱搞流量 * AI视频播客剪辑营</title>
+<link
+  rel="preload"
+  as="image"
+  href="assets/bootcamp-podcast-1024.jpg"
+  imagesrcset="assets/bootcamp-podcast-768.jpg 768w, assets/bootcamp-podcast-1024.jpg 1024w"
+  imagesizes="100vw"
+>
 <style>
   :root {
     --gold: #f4c85b;
@@ -703,7 +710,17 @@
 <main>
 
   <div class="map-hero">
-    <img src="assets/bootcamp-podcast.png" alt="Bootcamp Podcast 篝火夜谈海报">
+    <img
+      src="assets/bootcamp-podcast-768.jpg"
+      srcset="assets/bootcamp-podcast-768.jpg 768w, assets/bootcamp-podcast-1024.jpg 1024w"
+      sizes="100vw"
+      width="1024"
+      height="1536"
+      alt="Bootcamp Podcast 篝火夜谈海报"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    >
   </div>
 
   <!-- ── MAP SECTION ── -->
