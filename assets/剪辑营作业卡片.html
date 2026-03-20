@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>搞钱搞流量AI视频播客剪辑营 · 第一节课作业</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root {
     --bg: #050505;
@@ -276,16 +275,7 @@
   .dot-2 { background: #d5a13b; opacity: 0.7; }
   .dot-3 { background: #8c631b; opacity: 0.5; }
 
-  /* ── Download + share tip ── */
-  .btn-download {
-    width: 100%; padding: 14px; border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 600; cursor: pointer;
-    background: #101010; color: var(--text);
-    border: 1.5px solid var(--border);
-    transition: all 0.2s ease; margin-bottom: 16px;
-  }
-  .btn-download:hover { border-color: var(--gold); color: var(--gold); }
-
+  /* ── Share tip ── */
   .share-tip {
     background: var(--panel); border-radius: 12px;
     border: 1px solid var(--border);
@@ -351,7 +341,7 @@
 
   <!-- Preview -->
   <div class="preview-section" id="previewSection" style="display:none">
-    <div class="preview-label">你的专属卡片 · 长按或点击下载</div>
+    <div class="preview-label">你的专属卡片 · 截图后发到群里</div>
     <div class="card-wrapper">
       <div id="outputCard">
         <!-- brand bar -->
@@ -410,10 +400,8 @@
       </div>
     </div>
 
-    <button class="btn-download" onclick="downloadCard()">⬇️ 下载卡片</button>
-
     <div class="share-tip">
-      把卡片发到群里，配一句：<br>
+      直接截图这张卡片发到群里，配一句：<br>
       <strong>「这是我在剪辑营的起点，欢迎大家认识我 👋」</strong>
     </div>
   </div>
@@ -490,21 +478,6 @@
     const section = document.getElementById('previewSection');
     section.style.display = 'block';
     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function downloadCard() {
-    const card = document.getElementById('outputCard');
-    html2canvas(card, {
-      scale: 3,
-      useCORS: true,
-      backgroundColor: null,
-      logging: false
-    }).then(canvas => {
-      const link = document.createElement('a');
-      link.download = '剪辑营打卡卡片.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    });
   }
 </script>
 </body>
