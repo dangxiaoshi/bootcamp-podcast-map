@@ -479,6 +479,61 @@
       4px 0 0 0 var(--gold-dark);
   }
 
+  .contact-board {
+    background: #090909;
+    border: 2px solid var(--gold);
+    padding: 28px 24px;
+    position: relative;
+    text-align: center;
+    box-shadow:
+      0 -4px 0 0 var(--gold-dark),
+      0 4px 0 0 var(--gold-dark),
+      -4px 0 0 0 var(--gold-dark),
+      4px 0 0 0 var(--gold-dark);
+  }
+
+  .contact-board p {
+    color: var(--white);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .wechat-id {
+    margin: 18px auto 14px;
+    padding: 14px 16px;
+    max-width: 420px;
+    background: #050505;
+    border: 2px solid var(--gold-dark);
+    color: var(--gold);
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: none;
+    word-break: break-all;
+    box-shadow: 4px 4px 0 var(--shadow-deep);
+  }
+
+  .contact-tips {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .contact-tip {
+    padding: 6px 10px;
+    font-size: 11px;
+    color: var(--gold);
+    border: 1px solid var(--gold-dark);
+    background: #0b0b0b;
+  }
+
+  .copy-btn {
+    margin-top: 18px;
+    display: inline-block;
+  }
+
   .rules-board-title {
     text-align: center;
     font-size: 14px;
@@ -688,7 +743,7 @@
             <span>提交自我介绍作业，解锁后续关卡</span>
           </div>
         </div>
-        <a href="assets/剪辑营作业卡片.html" class="card-btn">▶ 进入新手村</a>
+        <a href="#wechat-entry" class="card-btn">💬 添加助教微信领取入口</a>
       </div>
 
       <!-- LEVEL 2 -->
@@ -717,7 +772,7 @@
             <span>完成1条音频逐字稿并提交</span>
           </div>
         </div>
-        <a href="#feishu-placeholder-2" class="card-btn locked-btn">🔒 尚未解锁</a>
+        <a href="#wechat-entry" class="card-btn locked-btn">💬 添加助教微信领取入口</a>
       </div>
 
       <!-- LEVEL 3 -->
@@ -746,7 +801,7 @@
             <span>提交粗剪版本，结构完整</span>
           </div>
         </div>
-        <a href="#feishu-placeholder-3" class="card-btn locked-btn">🔒 尚未解锁</a>
+        <a href="#wechat-entry" class="card-btn locked-btn">💬 添加助教微信领取入口</a>
       </div>
 
       <!-- LEVEL 4 -->
@@ -775,7 +830,7 @@
             <span>完成精剪版本，音画质量达标</span>
           </div>
         </div>
-        <a href="#feishu-placeholder-4" class="card-btn locked-btn">🔒 尚未解锁</a>
+        <a href="#wechat-entry" class="card-btn locked-btn">💬 添加助教微信领取入口</a>
       </div>
 
       <!-- LEVEL 5 -->
@@ -805,7 +860,7 @@
             <span>甲方（课程导师）验收通过，奖励到账</span>
           </div>
         </div>
-        <a href="#feishu-placeholder-5" class="card-btn locked-btn">🔒 尚未解锁</a>
+        <a href="#wechat-entry" class="card-btn locked-btn">💬 添加助教微信领取入口</a>
       </div>
 
       <!-- LEVEL 6 -->
@@ -835,7 +890,7 @@
             <span>甲方（课程导师）验收通过，奖励到账</span>
           </div>
         </div>
-        <a href="#feishu-placeholder-6" class="card-btn locked-btn">🔒 尚未解锁</a>
+        <a href="#wechat-entry" class="card-btn locked-btn">💬 添加助教微信领取入口</a>
       </div>
 
       <!-- LEVEL 7 BOSS -->
@@ -865,7 +920,7 @@
             <span>作品集通过导师终审，获得长期接单推荐资格</span>
           </div>
         </div>
-        <a href="#feishu-placeholder-7" class="card-btn boss-btn locked-btn">🔒 挑战Boss（未解锁）</a>
+        <a href="#wechat-entry" class="card-btn boss-btn locked-btn">💬 添加助教微信领取入口</a>
       </div>
 
     </div>
@@ -897,29 +952,48 @@
   </div>
 
   <div class="quick-entry">
-    <a href="#feishu-placeholder-group" class="entry-btn">
+    <a href="#wechat-entry" class="entry-btn">
       <span class="entry-icon">👥</span>
       加入课程群
     </a>
-    <a href="#feishu-placeholder-submit" class="entry-btn">
+    <a href="#wechat-entry" class="entry-btn">
       <span class="entry-icon">📤</span>
       提交作业
     </a>
-    <a href="#feishu-placeholder-tasks" class="entry-btn">
+    <a href="#wechat-entry" class="entry-btn">
       <span class="entry-icon">📋</span>
       查看任务池
     </a>
-    <a href="#feishu-placeholder-contact" class="entry-btn">
+    <a href="#wechat-entry" class="entry-btn">
       <span class="entry-icon">💬</span>
       联系助教
     </a>
+  </div>
+
+  <div class="section-title">
+    <span class="pixel-star">★</span>
+    联系助教
+    <span class="pixel-star">★</span>
+  </div>
+
+  <div class="contact-board" id="wechat-entry">
+    <div class="rules-board-title">💬 课程入口 / 后续更新 / 群公告通知</div>
+    <p>当前课程入口、作业提交通道和群内通知统一由助教发放。</p>
+    <div class="wechat-id" id="wechat-id">gaoqiantongxue</div>
+    <p>添加微信时可备注：<strong>AI视频播客剪辑营</strong></p>
+    <div class="contact-tips">
+      <span class="contact-tip">领取课程入口</span>
+      <span class="contact-tip">查看群公告</span>
+      <span class="contact-tip">获取后续更新</span>
+    </div>
+    <button type="button" class="card-btn copy-btn" id="copy-wechat-btn">复制微信号</button>
   </div>
 
 </main>
 
 <footer>
   <p>搞钱搞流量 * AI视频播客剪辑营 &nbsp;|&nbsp; 教学内循环训练营</p>
-  <p style="margin-top:8px;"><span class="blink">■</span> 所有跳转链接请联系助教获取飞书地址 <span class="blink">■</span></p>
+  <p style="margin-top:8px;"><span class="blink">■</span> 课程入口、后续更新与群公告通知，请添加助教微信：gaoqiantongxue <span class="blink">■</span></p>
 </footer>
 
 <script>
@@ -950,8 +1024,11 @@
   // ── Locked card click hint ──
   document.querySelectorAll('.locked-btn').forEach(btn => {
     btn.addEventListener('click', e => {
-      e.preventDefault();
       const card = btn.closest('.level-card');
+      if (btn.getAttribute('href') === '#wechat-entry') {
+        return;
+      }
+      e.preventDefault();
       card.style.animation = 'none';
       card.style.transform = 'translateX(8px)';
       setTimeout(() => { card.style.transform = 'translateX(-6px)'; }, 80);
@@ -959,6 +1036,23 @@
       setTimeout(() => { card.style.transform = 'translateX(0)'; }, 240);
     });
   });
+
+  const copyWechatBtn = document.getElementById('copy-wechat-btn');
+  const wechatId = document.getElementById('wechat-id').textContent.trim();
+  if (copyWechatBtn) {
+    copyWechatBtn.addEventListener('click', async () => {
+      const originalText = copyWechatBtn.textContent;
+      try {
+        await navigator.clipboard.writeText(wechatId);
+        copyWechatBtn.textContent = '已复制微信号';
+      } catch (error) {
+        copyWechatBtn.textContent = '复制失败，请手动添加';
+      }
+      setTimeout(() => {
+        copyWechatBtn.textContent = originalText;
+      }, 1800);
+    });
+  }
 </script>
 </body>
 </html>
