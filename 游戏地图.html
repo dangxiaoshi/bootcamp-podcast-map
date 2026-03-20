@@ -141,6 +141,7 @@
     display: inline-block;
     font-size: 13px;
     letter-spacing: 3px;
+    white-space: nowrap;
     color: var(--gold);
     background: #0a0a0a;
     border: 2px solid var(--gold-dark);
@@ -641,6 +642,11 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 600px) {
+    .tagline {
+      font-size: 10px;
+      letter-spacing: 1px;
+      padding: 6px 10px;
+    }
     .card-body {
       grid-template-columns: 1fr;
     }
