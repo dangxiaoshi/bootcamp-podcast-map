@@ -264,16 +264,6 @@
       0 0 24px rgba(246, 222, 148, 0.2);
   }
 
-  .level-card.gateway {
-    border-color: var(--gold);
-    box-shadow:
-      0 -4px 0 0 var(--gold),
-      0 4px 0 0 var(--gold),
-      -4px 0 0 0 var(--gold),
-      4px 0 0 0 var(--gold),
-      0 0 24px rgba(244, 200, 91, 0.18);
-  }
-
   .level-card.locked {
     opacity: 0.6;
     filter: saturate(0.75) brightness(0.92);
@@ -728,34 +718,6 @@
 
     <div class="levels">
 
-      <!-- LEVEL 00 -->
-      <div class="level-card gateway">
-        <div class="card-header">
-          <div>
-            <span class="level-num">LEVEL 00</span>
-            <div class="level-name">🚪 商业路口</div>
-          </div>
-          <div class="badges">
-            <span class="badge badge-done">⭐ 总入口</span>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-field">
-            <label>🎯 关卡目标</label>
-            <span>领取课程入口，查看后续更新与群公告通知</span>
-          </div>
-          <div class="card-field">
-            <label>⏱ 预计耗时</label>
-            <span>约 1 min</span>
-          </div>
-          <div class="card-field full">
-            <label>✅ 通关标准</label>
-            <span>添加助教微信，获取课程入口与最新通知</span>
-          </div>
-        </div>
-        <a href="#wechat-entry" class="card-btn">💬 进入商业路口</a>
-      </div>
-
       <!-- LEVEL 1 -->
       <div class="level-card active">
         <div class="card-header">
@@ -774,14 +736,14 @@
           </div>
           <div class="card-field">
             <label>⏱ 预计耗时</label>
-            <span>3min</span>
+            <span>约 1 天</span>
           </div>
           <div class="card-field full">
             <label>✅ 通关标准</label>
             <span>提交自我介绍作业，解锁后续关卡</span>
           </div>
         </div>
-        <a href="#wechat-entry" class="card-btn">💬 添加助教微信领取入口</a>
+        <a href="assets/剪辑营作业卡片.html" class="card-btn">▶ 进入新手村</a>
       </div>
 
       <!-- LEVEL 2 -->
@@ -1010,12 +972,12 @@
 
   <div class="section-title">
     <span class="pixel-star">★</span>
-    商业路口
+    联系助教
     <span class="pixel-star">★</span>
   </div>
 
   <div class="contact-board" id="wechat-entry">
-    <div class="rules-board-title">💬 商业路口 / 课程入口 / 群公告通知</div>
+    <div class="rules-board-title">💬 课程入口 / 后续更新 / 群公告通知</div>
     <p>当前课程入口、作业提交通道和群内通知统一由助教发放。</p>
     <div class="wechat-id" id="wechat-id">gaoqiantongxue</div>
     <p>添加微信时可备注：<strong>AI视频播客剪辑营</strong></p>
