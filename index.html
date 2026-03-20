@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搞钱搞流量*Ai视频播客剪辑营</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #2d1706;
+      --bg-deep: #170a02;
+      --panel: #ffe9a6;
+      --panel-strong: #ffc95c;
+      --panel-soft: #fff6d9;
+      --map: #6d3d13;
+      --map-deep: #4a2608;
+      --line: #7b420d;
+      --line-strong: #4f2500;
+      --text: #462101;
+      --muted: #82531f;
+      --accent: #ffb331;
+      --accent-soft: #ffe27c;
+      --green: #b8dd6e;
+      --brown: #b67f43;
+      --shadow: #3c1b03;
+      --white-shadow: #fff5cb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      image-rendering: pixelated;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "ZCOOL QingKe HuangYou", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255, 212, 113, 0.22), transparent 34%),
+        linear-gradient(180deg, #3a1f08 0%, #251203 42%, #160801 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 16px 16px;
+      opacity: 0.16;
+      z-index: 0;
+    }
+
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 3px,
+        rgba(255, 240, 210, 0.08) 4px,
+        rgba(255, 255, 255, 0) 5px
+      );
+      opacity: 0.18;
+      z-index: 1;
+    }
+
+    .page {
+      position: relative;
+      z-index: 2;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .pixel-panel {
+      background: linear-gradient(180deg, var(--panel) 0%, #ffd772 100%);
+      border: 4px solid var(--line);
+      box-shadow:
+        0 0 0 4px #f6bc4e,
+        8px 8px 0 var(--shadow);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 148px;
+      height: 148px;
+      right: 26px;
+      top: 18px;
+      background:
+        linear-gradient(180deg, #fff7c6 0 16px, transparent 16px),
+        linear-gradient(90deg, #fff7c6 0 16px, transparent 16px),
+        linear-gradient(180deg, #ffcf5d 0%, #ffae2d 100%);
+      background-size: 32px 32px, 32px 32px, 100% 100%;
+      background-position: 0 0, 0 0, center;
+      border: 4px solid var(--line);
+      box-shadow: 8px 8px 0 rgba(79, 37, 0, 0.24);
+      opacity: 0.82;
+      transform: rotate(-6deg);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -70px auto;
+      width: 320px;
+      height: 180px;
+      background:
+        linear-gradient(180deg, rgba(255, 229, 134, 0.86) 0 22px, transparent 22px),
+        linear-gradient(180deg, rgba(226, 150, 47, 0.74) 22px 44px, transparent 44px),
+        linear-gradient(180deg, rgba(120, 67, 17, 0.9) 44px 100%);
+      border-top: 4px solid rgba(123, 66, 13, 0.5);
+      transform: rotate(-4deg);
+      opacity: 0.78;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.45fr 0.95fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border: 3px solid var(--line-strong);
+      box-shadow: 3px 3px 0 rgba(79, 37, 0, 0.25);
+      animation: pulse-block 1.6s steps(2) infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.94;
+      color: #5a2900;
+      text-shadow:
+        3px 3px 0 var(--white-shadow),
+        7px 7px 0 rgba(106, 56, 10, 0.2);
+      max-width: 11ch;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      max-width: 24em;
+      font-size: 1.55rem;
+      line-height: 1.2;
+      color: #6f4010;
+      margin-bottom: 18px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 8px 12px;
+      font-size: 1rem;
+      background: rgba(255, 248, 220, 0.78);
+      border: 3px solid var(--line);
+      box-shadow: 4px 4px 0 rgba(79, 37, 0, 0.18);
+    }
+
+    .hero-side {
+      padding: 18px;
+      background: rgba(255, 248, 226, 0.74);
+      border: 4px solid rgba(123, 66, 13, 0.9);
+      box-shadow: inset -4px -4px 0 rgba(255, 204, 90, 0.32), inset 4px 4px 0 rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(2px);
+    }
+
+    .hero-side h2 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-side p {
+      font-size: 1.2rem;
+      line-height: 1.18;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .stat-card {
+      padding: 12px 10px;
+      background: var(--panel-soft);
+      border: 3px solid var(--line);
+      text-align: center;
+      box-shadow: 4px 4px 0 rgba(79, 37, 0, 0.18);
+    }
+
+    .stat-card strong {
+      display: block;
+      font-size: 1.85rem;
+      color: #623100;
+      margin-bottom: 2px;
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .hero-note {
+      padding: 12px 14px;
+      font-size: 1.08rem;
+      line-height: 1.16;
+      background: rgba(255, 218, 111, 0.7);
+      border: 3px solid var(--line);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.72fr) minmax(320px, 0.95fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .section {
+      padding: 22px;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      font-size: 2.35rem;
+      margin-bottom: 4px;
+    }
+
+    .section-head p {
+      font-size: 1.15rem;
+      color: var(--muted);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    .legend span {
+      padding: 6px 10px;
+      font-size: 1rem;
+      border: 3px solid var(--line);
+      box-shadow: 3px 3px 0 rgba(79, 37, 0, 0.18);
+      background: var(--panel-soft);
+    }
+
+    .legend .locked {
+      background: #cca470;
+      color: #fff7eb;
+    }
+
+    .legend .playing {
+      background: #ffe47b;
+    }
+
+    .legend .clear {
+      background: #cfe69b;
+    }
+
+    .map-hint {
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      font-size: 1.16rem;
+      line-height: 1.2;
+      background: rgba(255, 248, 220, 0.74);
+      border: 3px solid var(--line);
+      color: var(--muted);
+    }
+
+    .map-scroll {
+      overflow: hidden;
+    }
+
+    .map-canvas {
+      position: relative;
+      min-height: 980px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 16% 18%, rgba(255, 225, 140, 0.26), transparent 16%),
+        linear-gradient(180deg, #8a4d17 0%, #6e3810 58%, #56290c 100%);
+      border: 4px solid var(--line);
+      box-shadow: inset 0 0 0 4px rgba(255, 222, 150, 0.18);
+      overflow: hidden;
+    }
+
+    .map-canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 240, 180, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 240, 180, 0.08) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .route {
+      position: absolute;
+      background: repeating-linear-gradient(
+        90deg,
+        #ffd55f 0 16px,
+        #e89b31 16px 28px
+      );
+      border: 3px solid #6a380d;
+      box-shadow: 4px 4px 0 rgba(44, 16, 0, 0.22);
+      z-index: 1;
+    }
+
+    .route.vertical {
+      background: repeating-linear-gradient(
+        180deg,
+        #ffd55f 0 16px,
+        #e89b31 16px 28px
+      );
+    }
+
+    .route-a { left: 286px; top: 154px; width: 118px; height: 14px; }
+    .route-b { left: 470px; top: 172px; width: 14px; height: 122px; }
+    .route-c { left: 482px; top: 294px; width: 234px; height: 14px; }
+    .route-d { left: 812px; top: 414px; width: 14px; height: 180px; }
+    .route-e { left: 484px; top: 554px; width: 14px; height: 132px; }
+    .route-f { left: 212px; top: 670px; width: 210px; height: 14px; }
+    .route-g { left: 642px; top: 710px; width: 118px; height: 14px; }
+
+    .terrain,
+    .coin,
+    .flag {
+      position: absolute;
+      z-index: 0;
+    }
+
+    .terrain {
+      background:
+        linear-gradient(180deg, rgba(255, 220, 132, 0.85) 0 20px, transparent 20px),
+        linear-gradient(180deg, rgba(170, 96, 29, 0.84) 20px 100%);
+      border: 4px solid rgba(99, 50, 11, 0.75);
+      opacity: 0.75;
+    }
+
+    .terrain-one {
+      left: 76px;
+      top: 348px;
+      width: 168px;
+      height: 88px;
+    }
+
+    .terrain-two {
+      right: 88px;
+      top: 104px;
+      width: 126px;
+      height: 68px;
+    }
+
+    .terrain-three {
+      right: 140px;
+      bottom: 92px;
+      width: 194px;
+      height: 90px;
+    }
+
+    .coin {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(180deg, #fff2ad 0%, #ffb933 100%);
+      border: 4px solid #7d420d;
+      box-shadow: 4px 4px 0 rgba(60, 27, 3, 0.26);
+      animation: float-coin 2.2s steps(3) infinite;
+    }
+
+    .coin-one {
+      left: 298px;
+      top: 518px;
+    }
+
+    .coin-two {
+      right: 180px;
+      top: 560px;
+      animation-delay: 0.6s;
+    }
+
+    .flag {
+      width: 34px;
+      height: 62px;
+      background:
+        linear-gradient(90deg, #5f3005 0 12px, transparent 12px),
+        linear-gradient(180deg, transparent 0 8px, #ffd560 8px 30px, transparent 30px);
+      filter: drop-shadow(4px 4px 0 rgba(60, 27, 3, 0.2));
+    }
+
+    .flag-one {
+      right: 242px;
+      top: 354px;
+    }
+
+    .flag-two {
+      left: 300px;
+      top: 728px;
+    }
+
+    .stage-card {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 248px;
+      padding: 14px;
+      background: linear-gradient(180deg, #fff8df 0%, #ffe8a4 100%);
+      border: 4px solid var(--line-strong);
+      box-shadow:
+        0 0 0 4px rgba(255, 230, 152, 0.42),
+        8px 8px 0 rgba(60, 27, 3, 0.28);
+      cursor: pointer;
+      z-index: 2;
+      transition:
+        transform 140ms steps(2),
+        box-shadow 140ms steps(2),
+        filter 140ms steps(2);
+    }
+
+    .stage-card:hover,
+    .stage-card:focus-visible,
+    .stage-card.is-active {
+      transform: translate(-4px, -4px);
+      box-shadow:
+        0 0 0 4px rgba(255, 239, 194, 0.72),
+        12px 12px 0 rgba(60, 27, 3, 0.34);
+    }
+
+    .stage-card:focus-visible {
+      outline: 4px solid #fff9d8;
+      outline-offset: 4px;
+    }
+
+    .stage-card.status-locked {
+      filter: saturate(0.78);
+    }
+
+    .stage-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+
+    .stage-order {
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .stage-status {
+      padding: 5px 10px;
+      font-size: 0.98rem;
+      border: 3px solid var(--line-strong);
+      box-shadow: 3px 3px 0 rgba(79, 37, 0, 0.14);
+      white-space: nowrap;
+    }
+
+    .status-locked .stage-status {
+      background: #b78458;
+      color: #fff7ea;
+    }
+
+    .status-playing .stage-status {
+      background: #ffe77c;
+      color: #5d3000;
+      animation: flash-status 1.1s steps(2) infinite;
+    }
+
+    .status-clear .stage-status {
+      background: #cfe397;
+      color: #314401;
+    }
+
+    .stage-card h3 {
+      font-size: 1.75rem;
+      line-height: 0.98;
+      color: #572800;
+      margin-bottom: 10px;
+    }
+
+    .stage-reward {
+      display: inline-block;
+      padding: 5px 10px;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      background: rgba(255, 206, 94, 0.58);
+      border: 3px solid rgba(123, 66, 13, 0.85);
+      color: #6b3502;
+    }
+
+    .status-clear .stage-reward {
+      background: rgba(193, 229, 127, 0.72);
+    }
+
+    .stage-meta {
+      display: grid;
+      gap: 8px;
+    }
+
+    .stage-meta div {
+      padding: 8px;
+      background: rgba(255, 255, 255, 0.48);
+      border: 3px solid rgba(123, 66, 13, 0.3);
+    }
+
+    .stage-meta dt {
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .stage-meta dd {
+      font-size: 1.08rem;
+      line-height: 1.16;
+      color: #4a2400;
+    }
+
+    .stage-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: linear-gradient(180deg, var(--accent-soft) 0%, var(--accent) 100%);
+      color: #4c2200;
+      text-decoration: none;
+      font-size: 1.15rem;
+      border: 4px solid var(--line-strong);
+      box-shadow: 4px 4px 0 rgba(60, 27, 3, 0.24);
+      transition: transform 120ms steps(2), box-shadow 120ms steps(2);
+    }
+
+    .stage-button:hover,
+    .stage-button:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 rgba(60, 27, 3, 0.24);
+      outline: none;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 18px;
+    }
+
+    .info-box h3,
+    .rule-box h3,
+    .quick-box h3 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .info-box p,
+    .quick-tip {
+      font-size: 1.18rem;
+      line-height: 1.18;
+      color: var(--muted);
+    }
+
+    .info-list,
+    .rule-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .info-list li,
+    .rule-list li {
+      list-style: none;
+      padding: 12px 12px 12px 16px;
+      font-size: 1.12rem;
+      line-height: 1.16;
+      background: rgba(255, 248, 223, 0.72);
+      border: 3px solid rgba(123, 66, 13, 0.5);
+      position: relative;
+    }
+
+    .info-list li::before,
+    .rule-list li::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 15px;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border: 2px solid var(--line-strong);
+    }
+
+    .quick-links {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .quick-link {
+      display: block;
+      padding: 14px;
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff7dc 0%, #ffd36f 100%);
+      border: 4px solid var(--line);
+      box-shadow: 6px 6px 0 rgba(60, 27, 3, 0.22);
+      transition: transform 120ms steps(2), box-shadow 120ms steps(2);
+    }
+
+    .quick-link:hover,
+    .quick-link:focus-visible {
+      transform: translate(-2px, -2px);
+      box-shadow: 8px 8px 0 rgba(60, 27, 3, 0.26);
+      outline: none;
+    }
+
+    .quick-link strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+      color: #592a00;
+    }
+
+    .quick-link span {
+      display: block;
+      font-size: 1.06rem;
+      line-height: 1.16;
+      color: var(--muted);
+    }
+
+    .footer {
+      padding: 16px 18px;
+      margin-top: 22px;
+      text-align: center;
+      font-size: 1.06rem;
+      color: #fce9b6;
+      background: rgba(99, 50, 11, 0.56);
+      border: 4px solid rgba(255, 193, 73, 0.42);
+      box-shadow: 8px 8px 0 rgba(20, 9, 2, 0.24);
+    }
+
+    @keyframes flash-status {
+      50% {
+        filter: brightness(0.88);
+      }
+    }
+
+    @keyframes float-coin {
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @keyframes pulse-block {
+      50% {
+        transform: scale(0.92);
+      }
+    }
+
+    @media (max-width: 1140px) {
+      .hero-grid,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-title {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 840px) {
+      .page {
+        padding: 16px;
+      }
+
+      .hero,
+      .section {
+        padding: 18px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .legend {
+        justify-content: start;
+      }
+
+      .map-canvas {
+        min-height: auto;
+        padding: 16px;
+        display: grid;
+        gap: 16px;
+      }
+
+      .route,
+      .terrain,
+      .coin,
+      .flag {
+        display: none;
+      }
+
+      .stage-card {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-title {
+        font-size: 2.45rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.32rem;
+      }
+
+      .section-head h2,
+      .info-box h3,
+      .rule-box h3,
+      .quick-box h3 {
+        font-size: 1.8rem;
+      }
+
+      .chip-row {
+        gap: 8px;
+      }
+
+      .chip {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main class="page">
+    <section class="hero pixel-panel">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">像素闯关导航页</p>
+          <h1 class="hero-title">搞钱搞流量*Ai视频播客剪辑营</h1>
+          <p class="hero-subtitle">
+            这是一个只负责导航与说明的游戏化地图网页。所有实操动作统一跳转到飞书完成，页面本身不做后端，也不记录个人进度。
+          </p>
+          <div class="chip-row">
+            <span class="chip">课程内循环训练营</span>
+            <span class="chip">任务来自真实播客素材</span>
+            <span class="chip">音频任务奖励 ¥50</span>
+            <span class="chip">视频任务奖励 ¥100</span>
+            <span class="chip">第一版为纯前端静态页</span>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <h2>玩法说明</h2>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <strong>7</strong>
+              <span>张地图关卡</span>
+            </div>
+            <div class="stat-card">
+              <strong>2</strong>
+              <span>条奖励任务线</span>
+            </div>
+            <div class="stat-card">
+              <strong>1</strong>
+              <span>座导出 Boss 塔</span>
+            </div>
+          </div>
+          <p>每张关卡卡片都能直接点击，也保留单独按钮。你后续只需要替换飞书占位链接，不用改页面结构。</p>
+          <div class="hero-note">
+            定位提醒：这里不是外部商业接单平台，所有任务都属于课程内训练任务，奖励也由你自己支付。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="section pixel-panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">地图关卡区</p>
+            <h2>剪辑冒险地图</h2>
+            <p>点击关卡卡片即可跳转飞书，占位状态只做视觉展示，不会真实存档。</p>
+          </div>
+          <div class="legend" aria-label="状态图例">
+            <span class="locked">未解锁</span>
+            <span class="playing">进行中</span>
+            <span class="clear">已通关</span>
+          </div>
+        </div>
+
+        <div class="map-hint" id="mapHint">当前查看：新手村。提交第一次自我介绍作业后，才会解锁接单群与后续训练任务。</div>
+
+        <div class="map-scroll">
+          <div class="map-canvas" id="mapCanvas">
+            <div class="terrain terrain-one" aria-hidden="true"></div>
+            <div class="terrain terrain-two" aria-hidden="true"></div>
+            <div class="terrain terrain-three" aria-hidden="true"></div>
+            <div class="coin coin-one" aria-hidden="true"></div>
+            <div class="coin coin-two" aria-hidden="true"></div>
+            <div class="flag flag-one" aria-hidden="true"></div>
+            <div class="flag flag-two" aria-hidden="true"></div>
+
+            <div class="route route-a" aria-hidden="true"></div>
+            <div class="route route-b vertical" aria-hidden="true"></div>
+            <div class="route route-c" aria-hidden="true"></div>
+            <div class="route route-d vertical" aria-hidden="true"></div>
+            <div class="route route-e vertical" aria-hidden="true"></div>
+            <div class="route route-f" aria-hidden="true"></div>
+            <div class="route route-g" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <section class="section pixel-panel info-box">
+          <h3>训练定位</h3>
+          <p>网页只做导航与说明，真正的交付、认领、提交与沟通都跳转飞书完成。</p>
+          <ul class="info-list">
+            <li>这是教学内循环训练营，不是对外商业接单平台。</li>
+            <li>所有任务素材都来自你自己的真实播客内容。</li>
+            <li>奖励机制属于训练激励，不是平台佣金结算。</li>
+          </ul>
+        </section>
+
+        <section class="section pixel-panel rule-box">
+          <h3>任务池规则</h3>
+          <ul class="rule-list">
+            <li>提交第一次自我介绍作业后，才会解锁接单群。</li>
+            <li>前 10 条任务中，每条最多 2 人认领，最终只通过 1 条。</li>
+            <li>第 11 条任务开始，每条仅允许 1 人认领。</li>
+            <li>音频任务奖励 ¥50 / 条，视频任务奖励 ¥100 / 条。</li>
+            <li>所有任务都属于课程内训练任务。</li>
+          </ul>
+        </section>
+
+        <section class="section pixel-panel quick-box">
+          <h3>快捷入口</h3>
+          <p class="quick-tip">下面全部先接飞书占位符，后续把源码里的链接常量替换成真实飞书地址即可。</p>
+          <div class="quick-links" id="quickLinks"></div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      搞钱搞流量*Ai视频播客剪辑营｜像素地图导航页｜纯前端静态版｜无后端｜无本地存储
+    </footer>
+  </main>
+
+  <script>
+    // 后续只需要替换这里的链接常量，页面其他按钮和快捷入口会自动复用。
+    const FEISHU_LINKS = {
+      overview: "https://example.com/feishu-course-overview",
+      intro: "https://example.com/feishu-self-intro",
+      community: "https://example.com/feishu-community",
+      stageNewbie: "https://example.com/feishu-stage-newbie",
+      stageTranscript: "https://example.com/feishu-stage-transcript",
+      stageRoughCut: "https://example.com/feishu-stage-rough-cut",
+      stageFineCut: "https://example.com/feishu-stage-fine-cut",
+      stageAudio: "https://example.com/feishu-stage-audio",
+      stageVideo: "https://example.com/feishu-stage-video",
+      stageBoss: "https://example.com/feishu-stage-boss",
+      assetPack: "https://example.com/feishu-asset-pack",
+      submit: "https://example.com/feishu-submit"
+    };
+
+    const stageData = [
+      {
+        id: "newbie",
+        name: "新手村",
+        order: "第 1 站",
+        status: "已通关",
+        statusClass: "clear",
+        reward: "解锁接单群",
+        goal: "提交第一次自我介绍作业，完成入营亮相。",
+        duration: "预计 10 分钟",
+        standard: "在飞书提交自我介绍并收到已解锁后续训练提示。",
+        button: "去交自我介绍",
+        link: FEISHU_LINKS.stageNewbie,
+        x: "44px",
+        y: "58px"
+      },
+      {
+        id: "transcript",
+        name: "逐字稿港口",
+        order: "第 2 站",
+        status: "进行中",
+        statusClass: "playing",
+        reward: "建立素材底稿",
+        goal: "完成转写、标重点、确定保留段落。",
+        duration: "预计 20 分钟",
+        standard: "飞书中留下清晰逐字稿与保留片段标注。",
+        button: "去做逐字稿",
+        link: FEISHU_LINKS.stageTranscript,
+        x: "352px",
+        y: "72px"
+      },
+      {
+        id: "rough-cut",
+        name: "粗剪森林",
+        order: "第 3 站",
+        status: "未解锁",
+        statusClass: "locked",
+        reward: "搭好主线结构",
+        goal: "删除冗余内容，保留可听可看的主干节奏。",
+        duration: "预计 30 分钟",
+        standard: "得到一版主线明确、可继续精修的粗剪稿。",
+        button: "进入粗剪任务",
+        link: FEISHU_LINKS.stageRoughCut,
+        x: "696px",
+        y: "230px"
+      },
+      {
+        id: "fine-cut",
+        name: "精剪工坊",
+        order: "第 4 站",
+        status: "未解锁",
+        statusClass: "locked",
+        reward: "提升成片质感",
+        goal: "优化停顿、口癖、音量、节奏与听感。",
+        duration: "预计 45 分钟",
+        standard: "成片节奏更顺、收听体验明显提升。",
+        button: "进入精剪任务",
+        link: FEISHU_LINKS.stageFineCut,
+        x: "356px",
+        y: "392px"
+      },
+      {
+        id: "audio",
+        name: "音频任务线（¥50）",
+        order: "第 5 站",
+        status: "未解锁",
+        statusClass: "locked",
+        reward: "奖励 ¥50 / 条",
+        goal: "领取并完成一条音频训练任务。",
+        duration: "预计 40 分钟",
+        standard: "按要求提交音频成片并通过课程内审核。",
+        button: "领取音频任务",
+        link: FEISHU_LINKS.stageAudio,
+        x: "58px",
+        y: "572px"
+      },
+      {
+        id: "video",
+        name: "视频任务线（¥100）",
+        order: "第 6 站",
+        status: "未解锁",
+        statusClass: "locked",
+        reward: "奖励 ¥100 / 条",
+        goal: "领取并完成一条视频训练任务。",
+        duration: "预计 60 分钟",
+        standard: "按要求提交视频成片并通过课程内审核。",
+        button: "领取视频任务",
+        link: FEISHU_LINKS.stageVideo,
+        x: "386px",
+        y: "648px"
+      },
+      {
+        id: "boss",
+        name: "导出哨站 / Boss 塔",
+        order: "第 7 站",
+        status: "未解锁",
+        statusClass: "locked",
+        reward: "完成最终提交",
+        goal: "导出、质检并提交最终作业。",
+        duration: "预计 15 分钟",
+        standard: "飞书中交付最终文件与必要备注说明。",
+        button: "提交最终作业",
+        link: FEISHU_LINKS.stageBoss,
+        x: "734px",
+        y: "602px"
+      }
+    ];
+
+    const quickLinks = [
+      {
+        title: "课程总导航",
+        desc: "查看训练营总流程、阶段说明与操作入口。",
+        link: FEISHU_LINKS.overview
+      },
+      {
+        title: "自我介绍提交",
+        desc: "第一次作业提交入口，用于解锁接单群。",
+        link: FEISHU_LINKS.intro
+      },
+      {
+        title: "接单群入口",
+        desc: "完成首次作业后，进入课程内训练沟通群。",
+        link: FEISHU_LINKS.community
+      },
+      {
+        title: "素材模板包",
+        desc: "查看可复用模板、命名规则与素材说明。",
+        link: FEISHU_LINKS.assetPack
+      },
+      {
+        title: "最终提交区",
+        desc: "导出后统一回到这里交作业与备注说明。",
+        link: FEISHU_LINKS.submit
+      }
+    ];
+
+    const mapCanvas = document.getElementById("mapCanvas");
+    const quickLinksWrap = document.getElementById("quickLinks");
+    const mapHint = document.getElementById("mapHint");
+
+    function renderStages() {
+      const cards = stageData.map((stage) => {
+        return `
+          <article
+            class="stage-card status-${stage.statusClass}"
+            style="--x:${stage.x}; --y:${stage.y};"
+            data-stage-id="${stage.id}"
+            data-stage-link="${stage.link}"
+            tabindex="0"
+            role="link"
+            aria-label="${stage.name}，状态${stage.status}，点击跳转飞书"
+          >
+            <div class="stage-top">
+              <span class="stage-order">${stage.order}</span>
+              <span class="stage-status">${stage.status}</span>
+            </div>
+            <h3>${stage.name}</h3>
+            <div class="stage-reward">${stage.reward}</div>
+            <dl class="stage-meta">
+              <div>
+                <dt>目标</dt>
+                <dd>${stage.goal}</dd>
+              </div>
+              <div>
+                <dt>预计耗时</dt>
+                <dd>${stage.duration}</dd>
+              </div>
+              <div>
+                <dt>通关标准</dt>
+                <dd>${stage.standard}</dd>
+              </div>
+            </dl>
+            <a class="stage-button" href="${stage.link}" target="_blank" rel="noopener noreferrer">${stage.button}</a>
+          </article>
+        `;
+      }).join("");
+
+      mapCanvas.insertAdjacentHTML("beforeend", cards);
+    }
+
+    function renderQuickLinks() {
+      quickLinksWrap.innerHTML = quickLinks.map((item) => {
+        return `
+          <a class="quick-link" href="${item.link}" target="_blank" rel="noopener noreferrer">
+            <strong>${item.title}</strong>
+            <span>${item.desc}</span>
+          </a>
+        `;
+      }).join("");
+    }
+
+    function updateHint(stage, card) {
+      mapHint.textContent = `当前查看：${stage.name}。${stage.goal} 点击卡片任意区域或底部按钮，都能跳转到对应飞书页面。`;
+
+      document.querySelectorAll(".stage-card").forEach((node) => {
+        node.classList.remove("is-active");
+      });
+
+      if (card) {
+        card.classList.add("is-active");
+      }
+    }
+
+    function openStage(link) {
+      const win = window.open(link, "_blank", "noopener");
+      if (win) {
+        win.opener = null;
+      }
+    }
+
+    renderStages();
+    renderQuickLinks();
+
+    const cardMap = new Map(stageData.map((stage) => [stage.id, stage]));
+    const stageCards = document.querySelectorAll(".stage-card");
+
+    stageCards.forEach((card) => {
+      const stage = cardMap.get(card.dataset.stageId);
+
+      card.addEventListener("mouseenter", () => {
+        updateHint(stage, card);
+      });
+
+      card.addEventListener("focus", () => {
+        updateHint(stage, card);
+      });
+
+      card.addEventListener("click", (event) => {
+        if (event.target.closest(".stage-button")) {
+          return;
+        }
+
+        openStage(card.dataset.stageLink);
+      });
+
+      card.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") {
+          return;
+        }
+
+        if (event.target.closest(".stage-button")) {
+          return;
+        }
+
+        event.preventDefault();
+        openStage(card.dataset.stageLink);
+      });
+    });
+
+    if (stageCards[0]) {
+      updateHint(stageData[0], stageCards[0]);
+    }
+  </script>
+</body>
+</html>
