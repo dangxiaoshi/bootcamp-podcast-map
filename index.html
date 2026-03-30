@@ -590,6 +590,94 @@
       outline: none;
     }
 
+    .tool-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 12px;
+      background: linear-gradient(180deg, #d4f0b8 0%, #a8d86e 100%);
+      color: #2a4a00;
+      text-decoration: none;
+      font-size: 1.05rem;
+      border: 3px solid #4a7a10;
+      box-shadow: 3px 3px 0 rgba(30, 60, 0, 0.2);
+      transition: transform 120ms steps(2), box-shadow 120ms steps(2);
+    }
+
+    .tool-button:hover,
+    .tool-button:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 rgba(30, 60, 0, 0.2);
+      outline: none;
+    }
+
+    .map-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 10px 20px;
+      background: linear-gradient(180deg, #fff3b0 0%, var(--accent) 100%);
+      color: #4c2200;
+      text-decoration: none;
+      font-size: 1.2rem;
+      border: 4px solid var(--line-strong);
+      box-shadow: 5px 5px 0 rgba(60, 27, 3, 0.3);
+      transition: transform 120ms steps(2), box-shadow 120ms steps(2);
+    }
+
+    .map-hero-btn:hover,
+    .map-hero-btn:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 rgba(60, 27, 3, 0.3);
+      outline: none;
+    }
+
+    .ai-tool-box h3 {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .ai-tool-links {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .ai-tool-link {
+      display: block;
+      padding: 12px 14px;
+      text-decoration: none;
+      color: var(--text);
+      background: linear-gradient(180deg, #e8f8d0 0%, #c8e898 100%);
+      border: 4px solid #5a8a1a;
+      box-shadow: 5px 5px 0 rgba(30, 60, 0, 0.18);
+      transition: transform 120ms steps(2), box-shadow 120ms steps(2);
+    }
+
+    .ai-tool-link:hover,
+    .ai-tool-link:focus-visible {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 rgba(30, 60, 0, 0.22);
+      outline: none;
+    }
+
+    .ai-tool-link strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 3px;
+      color: #2a4e00;
+    }
+
+    .ai-tool-link span {
+      display: block;
+      font-size: 1.02rem;
+      line-height: 1.16;
+      color: #4a7010;
+    }
+
     .sidebar {
       display: grid;
       gap: 18px;
@@ -807,6 +895,7 @@
             <span class="chip">视频任务奖励 ¥100</span>
             <span class="chip">第一版为纯前端静态页</span>
           </div>
+          <a class="map-hero-btn" href="游戏地图.html" target="_blank" rel="noopener noreferrer">🗺 查看像素游戏地图</a>
         </div>
 
         <div class="hero-side">
@@ -898,6 +987,25 @@
           <p class="quick-tip">下面全部先接飞书占位符，后续把源码里的链接常量替换成真实飞书地址即可。</p>
           <div class="quick-links" id="quickLinks"></div>
         </section>
+
+        <section class="section pixel-panel ai-tool-box">
+          <h3>🤖 AI 工具箱</h3>
+          <p class="quick-tip">剪辑各关卡对应的 AI 小工具，点击直接打开。</p>
+          <div class="ai-tool-links">
+            <a class="ai-tool-link" href="https://dangxiaoshi.github.io/jianji/" target="_blank" rel="noopener noreferrer">
+              <strong>🎙 播客剪辑助手</strong>
+              <span>第 2-3 关用 · 粘贴逐字稿，获取剪辑决策</span>
+            </a>
+            <a class="ai-tool-link" href="https://dangxiaoshi.github.io/shownotes/" target="_blank" rel="noopener noreferrer">
+              <strong>📝 Show Notes 助手</strong>
+              <span>第 7 关用 · 粘贴逐字稿，一键生成标题和 Show Notes</span>
+            </a>
+            <a class="ai-tool-link" href="https://voice.podvid.uk/" target="_blank" rel="noopener noreferrer">
+              <strong>🔊 声音生成器</strong>
+              <span>第 5 关用 · 输入旁白文字，生成练习音频</span>
+            </a>
+          </div>
+        </section>
       </aside>
     </div>
 
@@ -951,6 +1059,7 @@
         standard: "飞书中留下清晰逐字稿与保留片段标注。",
         button: "去做逐字稿",
         link: FEISHU_LINKS.stageTranscript,
+        tool: { label: "🎙 用 AI 剪辑助手", link: "https://dangxiaoshi.github.io/jianji/" },
         x: "352px",
         y: "72px"
       },
@@ -966,6 +1075,7 @@
         standard: "得到一版主线明确、可继续精修的粗剪稿。",
         button: "进入粗剪任务",
         link: FEISHU_LINKS.stageRoughCut,
+        tool: { label: "🎙 用 AI 剪辑助手", link: "https://dangxiaoshi.github.io/jianji/" },
         x: "696px",
         y: "230px"
       },
@@ -996,6 +1106,7 @@
         standard: "按要求提交音频成片并通过课程内审核。",
         button: "领取音频任务",
         link: FEISHU_LINKS.stageAudio,
+        tool: { label: "🔊 生成练习旁白音频", link: "https://voice.podvid.uk/" },
         x: "58px",
         y: "572px"
       },
@@ -1026,6 +1137,7 @@
         standard: "飞书中交付最终文件与必要备注说明。",
         button: "提交最终作业",
         link: FEISHU_LINKS.stageBoss,
+        tool: { label: "📝 生成 Show Notes", link: "https://dangxiaoshi.github.io/shownotes/" },
         x: "734px",
         y: "602px"
       }
@@ -1096,6 +1208,7 @@
               </div>
             </dl>
             <a class="stage-button" href="${stage.link}" target="_blank" rel="noopener noreferrer">${stage.button}</a>
+            ${stage.tool ? `<a class="tool-button" href="${stage.tool.link}" target="_blank" rel="noopener noreferrer">${stage.tool.label}</a>` : ""}
           </article>
         `;
       }).join("");
