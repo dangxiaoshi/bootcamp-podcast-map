@@ -208,7 +208,6 @@
     <div class="nav-links">
       <a class="nav-link active" href="path.html">21天路径</a>
       <a class="nav-link" href="map.html">闯关地图</a>
-      <a class="nav-link" href="intro.html">第一节课作业</a>
     </div>
     <div class="nav-right">
       <a class="nav-back" href="index.html">← 训练台首页</a>
@@ -270,6 +269,7 @@ const LESSONS = [
     tasks: ['当众说出目标，写下21天计划', '明确怎么把学费赚回来', '加入学员微信群'],
     nextSteps: [{icon: '⚙️', text: 'D2–3 配工具跑流程'}, {icon: '💬', text: '进入学员社群'}],
     btn: { text: '▶ 进入开营直播', url: 'https://meeting.tencent.com/dm/QdzF7KoRnxeB', style: 'live' },
+    btn2: { text: '👋 做第一节课作业', url: 'intro.html', style: 'work' },
     dayNum: '第 1 天', daySub: '6月12日 · 19:00 开播'
   },
   {
@@ -465,13 +465,16 @@ function renderPanel(id) {
   const btn = l.btn.url
     ? `<a class="action-btn ${l.btn.style}" href="${l.btn.url}" target="_blank">${l.btn.text}</a>`
     : `<button class="action-btn ${l.btn.style}" disabled>${l.btn.text}</button>`;
+  const btn2 = l.btn2
+    ? `<a class="action-btn ${l.btn2.style}" href="${l.btn2.url}" style="margin-top:6px;">${l.btn2.text}</a>`
+    : '';
 
   panel.innerHTML = `
     <div class="rp-label">${l.type === 'live' ? '📺 直播课' : '📝 学习日'}</div>
     <div class="rp-day-num">${l.dayNum}</div>
     <div class="rp-day-sub">${l.daySub}</div>
     <div class="rp-section-title">今日任务</div>
-    ${tasks}${next}${btn}`;
+    ${tasks}${next}${btn}${btn2}`;
 }
 
 function selectLesson(id) {
