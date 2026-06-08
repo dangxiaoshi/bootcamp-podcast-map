@@ -67,6 +67,19 @@
 
     .chapter-nav::-webkit-scrollbar { display: none; }
 
+    .course-nav {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      padding-right: 8px;
+      border-right: 1px solid var(--border);
+    }
+
+    .course-nav::-webkit-scrollbar { display: none; }
+
     .ch-btn {
       flex-shrink: 0;
       font-size: 12px;
@@ -82,7 +95,8 @@
       transition: border-color 0.15s, color 0.15s;
     }
 
-    .ch-btn:hover {
+    .ch-btn:hover,
+    .ch-btn.active {
       border-color: var(--gold);
       color: var(--gold);
     }
@@ -328,6 +342,9 @@
     }
 
     @media (max-width: 560px) {
+      .top-bar { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .course-nav { width: 100%; border-right: 0; padding-right: 0; }
+      .chapter-nav { width: 100%; }
       .hero { padding: 40px 16px 24px; }
       .content { padding: 0 14px 60px; }
     }
@@ -336,7 +353,13 @@
 <body>
 
 <nav class="top-bar">
-  <a class="back-link" href="index.html">← 返回</a>
+  <a class="back-link" href="index.html">金钱剪刀</a>
+  <div class="course-nav">
+    <a class="ch-btn" href="path.html">21天路径</a>
+    <a class="ch-btn" href="map.html">闯关地图</a>
+    <a class="ch-btn active" href="baiwen.html">百问百答</a>
+    <a class="ch-btn" href="sop.html">剪辑课件</a>
+  </div>
   <div class="chapter-nav" id="chNav"></div>
 </nav>
 
