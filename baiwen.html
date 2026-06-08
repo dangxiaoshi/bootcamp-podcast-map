@@ -359,89 +359,54 @@ function esc(s) {
 }
 
 function inline(t) {
-  return t
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  return t.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 }
 
 function md(raw) {
-  const lines = raw.trim().split('\n');
-  const out = [];
-  let i = 0;
+  const blocks = raw.trim().split(/\n\n+/);
+  return blocks.map(block => {
+    const lines = block.split('\n').filter(l => l.trim());
+    if (!lines.length) return '';
 
-  while (i < lines.length) {
-    const line = lines[i];
-
-    // Empty / hr
-    if (!line.trim() || line.match(/^---+$/)) { i++; continue; }
-
-    // Table
-    if (line.startsWith('|')) {
-      const rows = [];
-      while (i < lines.length && lines[i].startsWith('|')) {
-        const l = lines[i++];
-        if (!l.match(/^\|[\s\-:|]+\|$/)) {
-          rows.push(l.split('|').slice(1,-1).map(c => c.trim()));
-        }
-      }
-      if (rows.length) {
-        let t = '<table><thead><tr>' + rows[0].map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead>';
-        if (rows.length > 1) t += '<tbody>' + rows.slice(1).map(r => '<tr>' + r.map(c => '<td>' + inline(c) + '</td>').join('') + '</tr>').join('') + '</tbody>';
-        out.push(t + '</table>');
-      }
-      continue;
+    // Table block
+    if (lines[0].startsWith('|')) {
+      const rows = lines
+        .filter(l => !l.match(/^\|[\s\-:|]+\|$/))
+        .map(l => l.split('|').slice(1,-1).map(c => c.trim()));
+      if (!rows.length) return '';
+      let t = '<table><thead><tr>' + rows[0].map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead>';
+      if (rows.length > 1) t += '<tbody>' + rows.slice(1).map(r => '<tr>' + r.map(c => '<td>' + inline(c) + '</td>').join('') + '</tr>').join('') + '</tbody>';
+      return t + '</table>';
     }
 
-    // Checklist
-    if (line.match(/^- \[[ x]\] /)) {
-      const items = [];
-      while (i < lines.length && lines[i].match(/^- \[[ x]\] /)) {
-        items.push('<li>' + inline(lines[i++].replace(/^- \[[ x]\] /, '')) + '</li>');
+    // PRE block
+    if (lines[0] === '[PRE]') {
+      const content = lines.slice(1).filter(l => l !== '[/PRE]');
+      return '<pre>' + content.map(l => esc(l)).join('\n') + '</pre>';
+    }
+
+    // Mixed content: text lines, unordered lists, ordered lists
+    const parts = [];
+    let ul = [], ol = [], txt = [];
+    const flushUl  = () => { if (ul.length)  { parts.push('<ul>' + ul.join('') + '</ul>');   ul  = []; } };
+    const flushOl  = () => { if (ol.length)  { parts.push('<ol>' + ol.join('') + '</ol>');   ol  = []; } };
+    const flushTxt = () => { if (txt.length) { parts.push('<p>'  + inline(txt.join(' ')) + '</p>'); txt = []; } };
+
+    for (const line of lines) {
+      if (line.match(/^- /)) {
+        flushOl(); flushTxt();
+        ul.push('<li>' + inline(line.slice(2)) + '</li>');
+      } else if (line.match(/^\d+\. /)) {
+        flushUl(); flushTxt();
+        ol.push('<li>' + inline(line.replace(/^\d+\. /, '')) + '</li>');
+      } else {
+        flushUl(); flushOl();
+        txt.push(line);
       }
-      out.push('<ul class="checklist">' + items.join('') + '</ul>');
-      continue;
     }
-
-    // Unordered list
-    if (line.match(/^- /)) {
-      const items = [];
-      while (i < lines.length && lines[i].match(/^- /)) {
-        items.push('<li>' + inline(lines[i++].slice(2)) + '</li>');
-      }
-      out.push('<ul>' + items.join('') + '</ul>');
-      continue;
-    }
-
-    // Ordered list
-    if (line.match(/^\d+\. /)) {
-      const items = [];
-      while (i < lines.length && lines[i].match(/^\d+\. /)) {
-        items.push('<li>' + inline(lines[i++].replace(/^\d+\. /, '')) + '</li>');
-      }
-      out.push('<ol>' + items.join('') + '</ol>');
-      continue;
-    }
-
-    // PRE block marker [PRE]...[/PRE]
-    if (line === '[PRE]') {
-      i++;
-      const codeLines = [];
-      while (i < lines.length && lines[i] !== '[/PRE]') {
-        codeLines.push(esc(lines[i++]));
-      }
-      if (i < lines.length) i++;
-      out.push('<pre>' + codeLines.join('\n') + '</pre>');
-      continue;
-    }
-
-    // Paragraph
-    const paraLines = [];
-    while (i < lines.length && lines[i].trim() && !lines[i].startsWith('|') && !lines[i].match(/^[-\d]/) && !lines[i].match(/^---+$/) && lines[i] !== '[PRE]') {
-      paraLines.push(lines[i++]);
-    }
-    if (paraLines.length) out.push('<p>' + inline(paraLines.join(' ')) + '</p>');
-  }
-
-  return out.join('\n');
+    flushUl(); flushOl(); flushTxt();
+    return parts.join('');
+  }).join('\n');
 }
 
 const CHAPTERS = [
